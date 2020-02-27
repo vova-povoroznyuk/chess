@@ -16,5 +16,4 @@ export function castling(data, canLeftCastling, canRightCastling){
       ){
       data.moveArr.push([data.y, data.x + 2])
     }
-    
 }
