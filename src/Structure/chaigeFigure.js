@@ -5,9 +5,7 @@ import Figure from './figure';
 
 export default (props) =>{
   const { state, updateState } = props;
-  console.log(state);
   const color = state.player === "black" ? "white" : "black";
-  console.log(color);
   return(
     <div className={`chaigeFigure ${color}`} onClick={(e) => handleChaigeFigure(e.target.dataset.figure, state, updateState)}>
         <label className="chaigeFigure_label">

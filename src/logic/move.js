@@ -1,7 +1,7 @@
 export function moveFigure(state, updateState){
-  const {x, y, player, typeFigure, moveArr, status, currentY, currentX} = state;
+  const {x, y, player, typeFigure, moveArr, status, currentY, currentX, takeInPass} = state;
   const nextPlayer = player === "white" ? 'black' : 'white';
-  let arr = status.slice();
+  let arr = status.map(el => el.slice());
   const item = moveArr.find((item) => 
       item[0] === y && item[1] === x ? item : null   
   )
@@ -12,17 +12,30 @@ export function moveFigure(state, updateState){
     currentX: null,
     currentY: null,
     typeFigure: '',
+    takeInPass: {},
   }
   if(item){
     arr[y][x] = player + ' ' + typeFigure;
     arr[currentY][currentX] = 'empty';
-    if(typeFigure === "pawn" && (y === 7 || y === 0)){ 
+    if(typeFigure === "pawn"){ 
+      if(y === 7 || y === 0){
         updateData = {
-            ...updateData,
-            currentY: y,
-            currentX: x,
-            isChaigeFigure: true,
+          ...updateData,
+          currentY: y,
+          currentX: x,
+          isChaigeFigure: true,
         }
+      }
+      else if(Math.abs(currentY - y) === 2){
+        updateData = {
+          ...updateData,
+          takeInPass: {y: y, x: x },
+        }
+      }
+      else if(x === takeInPass.x && currentY === takeInPass.y){
+        arr[takeInPass.y][takeInPass.x] = 'empty';
+      }
+        
     }; 
     if(typeFigure === "king"){
       if(x === currentX - 2){

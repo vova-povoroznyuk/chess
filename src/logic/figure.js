@@ -2,7 +2,8 @@ import { checkDirection } from '../logic/utils';
 import { diagonal, straight, horseDiraction } from '../data/figures';
 import { castling } from '../logic/castling'
 
-export function Pawn({x, y, color, player, status, moveArr}){
+export function Pawn(data){
+  const {x, y, color, player, status, moveArr, takeInPass } = data;
   if(color === 'white'){
       this.y1 = y+1;
       this.y2 = y+2;
@@ -30,9 +31,14 @@ export function Pawn({x, y, color, player, status, moveArr}){
           if(x + 1 < 8){
             status[this.y1][x+1].indexOf(this.enemy) !== -1 && moveArr.push([this.y1, x+1]);
           } 
+          if(x === takeInPass.x + 1 && y === takeInPass.y){
+            moveArr.push([this.y1, takeInPass.x])
+          }
+          if(x === takeInPass.x - 1 && y === takeInPass.y){
+            moveArr.push([this.y1, takeInPass.x])
+          }
       } 
   }
-
 }
 
 

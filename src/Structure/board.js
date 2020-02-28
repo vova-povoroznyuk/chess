@@ -10,7 +10,7 @@ import ChaigeFigure from '../Structure/chaigeFigure';
 export default () => {
     const { updateState, state } = useUserState()
     const canGo = state.moveArr;
-    console.log(state);
+    
     return(
         <div className="game">
             <div className="player">
@@ -31,7 +31,6 @@ export default () => {
                                 canGoSells.push(el[1])
                             }
                             if(i === state.currentY){
-                                // console.log(state.currentX);
                                 selectedCell = state.currentX;
                             }
                         })

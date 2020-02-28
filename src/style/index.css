@@ -80,23 +80,23 @@
     background: rgb(205,133,63);
 }
 .row:nth-child(2n) .canGo:nth-child(2n + 1){
-    background: lightgreen;
+    background: rgba(51,255,102,1);
 }
 .row:nth-child(2n + 1) .canGo:nth-child(2n){
-    background: lightgreen;
+    background: rgba(51,255,102,1);
 }
 .row:nth-child(2n) .selected:nth-child(2n + 1){
-    background: blue;
+    background: rgba(0,255,204,1);
 }
 .row:nth-child(2n + 1) .selected:nth-child(2n){
-    background: blue;
+    background: rgba(0,255,204,1);
 }
 .row .canGo{
-    background: lightgreen;
+    background: rgba(51,255,102,1);
     border: 1px solid white;
 }
 .selected{
-    background: blue;
+    background: rgba(0,255,204,1);
 }
 .player{
     text-align: center;
