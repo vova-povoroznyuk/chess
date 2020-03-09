@@ -13,6 +13,7 @@ export function moveFigure(state, updateState){
     currentY: null,
     typeFigure: '',
     takeInPass: {},
+    history: [...state.history, {currentX, currentY, nextX: x, nextY: y, typeFigure}],
   }
   if(item){
     arr[y][x] = player + ' ' + typeFigure;
@@ -61,7 +62,6 @@ export function moveFigure(state, updateState){
         ...updateData,
         status: arr,
         player: nextPlayer,
-        
     }
   }
   updateState({
@@ -69,3 +69,7 @@ export function moveFigure(state, updateState){
   })
   
 }
+
+
+
+

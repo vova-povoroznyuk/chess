@@ -3,10 +3,11 @@ import Cell from './cell';
 
 export default (props) => {
   let arr = props.status.map((item, i) => {
-    const canGo = props.canGoSells.indexOf(i) === -1 ? false : true;
-    let isSelected = i === props.selectedCell ? "selected" : '';
+    const canGo = !(props.canGoSells.indexOf(i) === -1);
+    let isSelected = i === props.selectedCell;
     return(
-    <Cell canGo={canGo} isSelected={isSelected} row={props.row} cell={i} status={item} onClick={(x, y) => props.onClick(x, y)} />)
+      <Cell canGo={canGo} isSelected={isSelected} row={props.row} cell={i} status={item} />
+    )
   })
   return(
       <div className={'row'}>

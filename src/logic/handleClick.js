@@ -1,9 +1,12 @@
 import { getColor } from '../logic/utils';
-
 import { choiseFigure } from '../logic/choiseFigure';
 import { moveFigure } from '../logic/move';
 
-export function handleClick(x, y, state, updateState){
+export function handleClick(coordinates, state, updateState){
+  if(!coordinates){ return };
+  const coordinatesArr = coordinates.split(', ');
+  const x = parseInt(coordinatesArr[0], 10);
+  const y = parseInt(coordinatesArr[1], 10);
   const { move, status, moveArr, player 
    } = state;
   const currentColor = getColor(status[y][x]);
@@ -33,3 +36,5 @@ export function handleClick(x, y, state, updateState){
   }
   
 }
+
+

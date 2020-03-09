@@ -14,6 +14,9 @@ export function useUserState(){
       canWhiteCastling: {right: true, left: true},
       canBlackCastling: {right: true, left: true},
       takeInPass: {}, 
+      isEnd: null,
+      history: [],
+      // {loser: "white", endType: 'checkmate'}
   };
   const [state, setState] = useState(initialState);
   function updateState(data){

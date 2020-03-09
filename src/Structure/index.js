@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from './board'
+import Game from './game'
 export default () => {
     return(
         <div className={'container'}>
@@ -9,7 +9,7 @@ export default () => {
             <a>Hello, React</a>
         </div>
         <div className="flex">
-            <Board />
+            <Game />
         </div>  
         </div>
     )
