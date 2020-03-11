@@ -6,8 +6,8 @@ export function castling(data, canLeftCastling, canRightCastling){
   let moveArr = [];
   const checkIsCheck = getAttackArr({x, y}, data, status).length !== 0;
   if(!checkIsCheck){
-    const checkLeft = checkCastling(canLeftCastling, data, -1);
-    const checkRight = checkCastling(canRightCastling, data, 1);
+    const checkLeft = checkCastling(canLeftCastling, data, -1, 0);
+    const checkRight = checkCastling(canRightCastling, data, 1, 7);
     checkLeft && moveArr.push([y, x - 2]);
     checkRight && moveArr.push([y, x + 2]);
   }

@@ -1,15 +1,15 @@
 import { getType } from '../logic/utils';
+import cloneDeep from 'clone-deep';
 
 export function getResultStatus(state, kingPosition = null){
   const {x, y, status, player } = state;
   const type = getType(status[y][x]);
-  let newStatus = status.map(el => el.slice());
+  let statusClone = cloneDeep(status);
   if(type !== 'king'){  
-    newStatus[y][x] = 'empty';
-    return newStatus;
+    statusClone[y][x] = 'empty';
   }else{
-    newStatus[kingPosition.y][kingPosition.x] = `${player} king`;
-    newStatus[y][x] = 'empty';
-    return newStatus;
+    statusClone[kingPosition.y][kingPosition.x] = `${player} king`;
+    statusClone[y][x] = 'empty';
   }
+  return statusClone;
 }

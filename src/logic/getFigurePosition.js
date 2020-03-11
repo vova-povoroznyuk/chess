@@ -1,12 +1,12 @@
 export function getFigurePosition(color, type, status){
-  let kingPosition = null;
+  let figurePosition = null;
   status.forEach((el, i) => {
     el.forEach((item, j) => {
       if(item === `${color} ${type}`){
-        kingPosition = {y: i, x: j}
+        figurePosition = {y: i, x: j}
       }
     })
   })
-  return kingPosition;
+  return figurePosition;
 }
 

@@ -1,4 +1,5 @@
 import { diagonal, straight } from '../data/figures';
+import { getType } from './utils';
 
 export function getAttackDirection(kingPosition, data, diractionType, status){
   const { player } = data;
@@ -6,7 +7,6 @@ export function getAttackDirection(kingPosition, data, diractionType, status){
   const { x, y} = kingPosition
   let diractionKind = [];
   let figuresTypeToAttack = [];
-  let attakKing = [];
   switch (diractionType) {
     case "diagonal":
       diractionKind = diagonal;
@@ -19,6 +19,7 @@ export function getAttackDirection(kingPosition, data, diractionType, status){
     default:
       break;
   }
+  let attakKing = [];
   diractionKind.forEach(el => {
     let arr = [];
     let isAttack = false;
@@ -26,10 +27,11 @@ export function getAttackDirection(kingPosition, data, diractionType, status){
         const currentY = y + el[0] * i;
         const currentX = x + el[1] * i;
         if(currentY >= 0 && currentY < 8 && currentX >= 0 && currentX < 8){
-          status[currentY][currentX] === "empty" && arr.push([currentY, currentX]);
+          status[currentY][currentX] === "empty" && arr.push([currentY, currentX, 'empty']);
           if(status[currentY][currentX].indexOf(player) !== -1){ break };
           if(figuresTypeToAttack.indexOf(status[currentY][currentX]) !== -1){
-            arr.push([currentY, currentX]);
+            const type = getType(status[currentY][currentX]);
+            arr.push([currentY, currentX, `${enemyColor} ${type}`]);
             isAttack = true;
             break;
           }
@@ -38,7 +40,7 @@ export function getAttackDirection(kingPosition, data, diractionType, status){
             break;
         }
       }
-       isAttack && (attakKing = [...attakKing, ...arr]);
+      isAttack && (attakKing = [ ...attakKing, ...arr]);
   })
   return attakKing;
 }

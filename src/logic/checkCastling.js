@@ -1,11 +1,14 @@
-import { getAttackArr } from './getAttackArr'
-export function checkCastling(castlingDiraction, data, dir){
+import { getAttackArr } from './getAttackArr';
+import cloneDeep from 'clone-deep';
+
+export function checkCastling(castlingDiraction, data, dir, tourPosition){
   const { status, x, y, player } = data;
-  let resultStatus = status.map(el => el.slice());
+  let resultStatus = cloneDeep(status);
     if(
       status[y][x + dir] === "empty" 
       && status[y][x + 2 * dir] === "empty"
       && castlingDiraction
+      && status[y][tourPosition].indexOf('tour') !== -1
     ){
       let kingPosition = {x: x + dir, y: y};
       resultStatus[y][x + dir] = `${player} king`;

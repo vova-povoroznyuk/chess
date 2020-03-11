@@ -3,7 +3,6 @@ import { letters } from '../data/startPosition';
 
 export default ({history}) => {
   const arr = history.map((el, i) =>{
-    console.log(el)
     const letterStart = letters[el.currentX];
     const numberStart = el.currentY + 1;
     const letterEnd = letters[el.nextX];

@@ -20,28 +20,30 @@ export default () => {
                 <div className="player" >
                     <span>Хід: {state.player === "white" ? "Білих" : "Чорних"}</span>
                 </div>
-                <div className={'board'}  onClick={(e) => handleClick(e.target.dataset.coordinates, state, updateState)}>
+                <div className={'board-wrap'}>
                     <div className={'letter'}>
                         {letters.map((item) => 
                             <div className={'letterItem'}><span>{item}</span></div>
                         )}
                     </div>
-                    {state.status.map((item, i) => {
-                        let canGoSells = [];
-                        let selectedCell = null;
-                        canGo.forEach((el) => el[0] === i && canGoSells.push(el[1]));
-                        i === state.currentY && (selectedCell = state.currentX);
-                        return(
-                            <Row selectedCell={selectedCell} status={item} canGoSells={canGoSells}  row={i} />
-                        )
-                    })}
+                    <div className={'board'} title="board"  onClick={(e) => handleClick(e.target.dataset.coordinates, state, updateState)}>
+                        {state.status.map((item, i) => {
+                            let canGoSells = [];
+                            let selectedCell = null;
+                            canGo.forEach((el) => el[0] === i && canGoSells.push(el[1]));
+                            i === state.currentY && (selectedCell = state.currentX);
+                            return(
+                                <Row selectedCell={selectedCell} status={item} canGoSells={canGoSells}  row={i} />
+                            )
+                        })}
+                        {state.isChaigeFigure && <ChaigeFigure state={state} updateState={updateState} />}
+                        {state.isEnd && <Message loser={state.isEnd.loser} endType={state.isEnd.endType} />}
+                    </div>
                     <div className={'letter bottomLetter'}>
                         {letters.map((item) => 
                             <div className={'letterItem'}><span>{item}</span></div>
                         )}
                     </div>
-                    {state.isChaigeFigure && <ChaigeFigure state={state} updateState={updateState} />}
-                    {state.isEnd && <Message loser={state.isEnd.loser} endType={state.isEnd.endType} />}
                 </div>
             </div>
             <History history={state.history} />
