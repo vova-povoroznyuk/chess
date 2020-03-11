@@ -1,58 +1,74 @@
-export function moveFigure(state, updateState){
-  const {x, y, player, typeFigure, moveArr, status, currentY, currentX} = state;
+import cloneDeep from 'clone-deep';
+
+export function moveFigure(state){
+  const {x, y, player, typeFigure, moveArr, status, currentY, currentX, takeInPass} = state;
   const nextPlayer = player === "white" ? 'black' : 'white';
-  let arr = status.slice();
+  let statusClone = cloneDeep(status);
   const item = moveArr.find((item) => 
       item[0] === y && item[1] === x ? item : null   
   )
   const canCastling = player === "white" ? "canWhiteCastling" : "canBlackCastling";
-  let updateData = {
+  let newState = {
     move: false,
     moveArr: [],
     currentX: null,
     currentY: null,
     typeFigure: '',
+    takeInPass: {},
   }
+  let newStateVals = {}
   if(item){
-    arr[y][x] = player + ' ' + typeFigure;
-    arr[currentY][currentX] = 'empty';
-    if(typeFigure === "pawn" && (y === 7 || y === 0)){ 
-        updateData = {
-            ...updateData,
-            currentY: y,
-            currentX: x,
-            isChaigeFigure: true,
+    statusClone[y][x] = player + ' ' + typeFigure;
+    statusClone[currentY][currentX] = 'empty';
+    if(typeFigure === "pawn"){ 
+      if(y === 7 || y === 0){
+        newStateVals = {
+          currentY: y,
+          currentX: x,
+          isChaigeFigure: true,
         }
+      }
+      else if(Math.abs(currentY - y) === 2){
+        newStateVals = {
+          takeInPass: {y: y, x: x },
+        }
+      }
+      else if(x === takeInPass.x && currentY === takeInPass.y){
+        statusClone[takeInPass.y][takeInPass.x] = 'empty';
+      }
+        
     }; 
     if(typeFigure === "king"){
       if(x === currentX - 2){
-        arr[y][x + 1] = player + " tour";
-        arr[currentY][0] = 'empty';
+        statusClone[y][x + 1] = player + " tour";
+        statusClone[currentY][0] = 'empty';
       } 
       else if(x === currentX + 2){
-        arr[y][x - 1] = player + " tour";
-        arr[currentY][7] = 'empty';
+        statusClone[y][x - 1] = player + " tour";
+        statusClone[currentY][7] = 'empty';
       }
-      updateData[canCastling] = {right: false, left: false};
+      newState[canCastling] = {right: false, left: false};
     };
     if(typeFigure === "tour"){
       if(currentX === 0){
-        updateData[canCastling] = {...state[canCastling], left: false};
+        newState[canCastling] = {...state[canCastling], left: false};
       }
       else if(currentX === 7){
-        updateData[canCastling] = {...state[canCastling], right: false};
+        newState[canCastling] = {...state[canCastling], right: false};
       }
       
     }
-    updateData = {
-        ...updateData,
-        status: arr,
+    newState = {
+        ...newState,
+        ...newStateVals,
         player: nextPlayer,
-        
+        status: statusClone,
+        history: [...state.history, {currentX, currentY, nextX: x, nextY: y, typeFigure}],
     }
   }
-  updateState({
-      ...updateData,
-  })
-  
+  return newState
 }
+
+
+
+

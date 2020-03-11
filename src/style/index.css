@@ -17,21 +17,31 @@
 .container{
     width: 100vw;
     height: 100vh;
-    background: rgb(64,224,208);
 }
 .board{
     width: calc(25vw + 25vh);
     height: calc(25vw + 25vh);
     display: flex;
     flex-wrap: wrap;
-    margin: 50px;
-    padding: 10px;
+    box-shadow: 0 0 0px 20px lightgrey;
+}
+.board-wrap{
     position: relative;
+    padding: 10px;
+    margin: 50px;
 }
 .figure{
     font-size: calc(2.5vw + 2.5vh);
     cursor: pointer;
     user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.empty{
+    cursor: auto;
 }
 .number{
     position: absolute;
@@ -40,14 +50,13 @@
 }
 .letter{
     width: calc(100% - 20px);
-    height: 5px;
     position: absolute;
     top: 0px;
     display: flex;
 }
 .bottomLetter{
+    bottom: 0;
     top: auto;
-    bottom: -10px;
 }
 .letterItem{
     width: 12.5%;
@@ -80,28 +89,29 @@
     background: rgb(205,133,63);
 }
 .row:nth-child(2n) .canGo:nth-child(2n + 1){
-    background: lightgreen;
+    background: rgba(51,255,102,1);
 }
 .row:nth-child(2n + 1) .canGo:nth-child(2n){
-    background: lightgreen;
+    background: rgba(51,255,102,1);
 }
 .row:nth-child(2n) .selected:nth-child(2n + 1){
-    background: blue;
+    background: rgba(0,255,204,1);
 }
 .row:nth-child(2n + 1) .selected:nth-child(2n){
-    background: blue;
+    background: rgba(0,255,204,1);
 }
 .row .canGo{
-    background: lightgreen;
+    background: rgba(51,255,102,1);
     border: 1px solid white;
 }
 .selected{
-    background: blue;
+    background: rgba(0,255,204,1);
 }
 .player{
     text-align: center;
 }
 .game{
+    width: 100%;
     padding-top: 50px;
 }
 .flex{
@@ -136,4 +146,35 @@
     justify-content: center;
     align-items: center;
     z-index: 10;
+}
+
+.message-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.message{
+    padding: 20px 50px;
+    background: rgba(255, 255, 255, 1);
+}
+
+.history-item{
+    width: 50%;
+    margin-bottom: 5px;
+}
+.history-caption{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.history{
+    width: calc(100% - 25vw - 25vh);
+    display: flex;
+    flex-wrap: wrap;
+    align-self: flex-start;
 }

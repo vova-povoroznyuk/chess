@@ -2,13 +2,12 @@ import React from 'react';
 import Cell from './cell';
 
 export default (props) => {
-  console.log(props);
   let arr = props.status.map((item, i) => {
-    const canGo = props.canGoSells.indexOf(i) === -1 ? false : true;
-    let isSelected = i === props.selectedCell ? "selected" : '';
-    console.log("selectedSell", isSelected, props.selectedCell,  i)
+    const canGo = !(props.canGoSells.indexOf(i) === -1);
+    let isSelected = i === props.selectedCell;
     return(
-    <Cell canGo={canGo} isSelected={isSelected} row={props.row} cell={i} status={item} onClick={(x, y) => props.onClick(x, y)} />)
+      <Cell canGo={canGo} isSelected={isSelected} row={props.row} cell={i} status={item} />
+    )
   })
   return(
       <div className={'row'}>

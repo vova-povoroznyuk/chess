@@ -1,35 +1,51 @@
 import { getColor } from '../logic/utils';
-
-import { choiseFigure } from '../logic/choiseFigure';
 import { moveFigure } from '../logic/move';
+import { getType } from './utils';
+import { getResultMoveArr } from './getResultMoveArr'
 
-export function handleClick(x, y, state, updateState){
+export function handleClick(coordinates, state, updateState){
+  if(!coordinates){ return };
+  const coordinatesArr = coordinates.split(', ');
+  const x = parseInt(coordinatesArr[0], 10);
+  const y = parseInt(coordinatesArr[1], 10);
   const { move, status, moveArr, player 
    } = state;
   const currentColor = getColor(status[y][x]);
-  const data = {
+  const stateWithCoordinates = {
     x,
     y,
     ...state,
   };
   if(!state.isChaigeFigure){
+    let newState = {};
     if(!move && status[y][x] === 'empty'){
       return;
     }
     else if(currentColor === player){
-      choiseFigure(updateState, data);
+      const { status } = state;
+      const type = getType(status[y][x]);
+      const resultMoveArr = getResultMoveArr(stateWithCoordinates);
+      newState = {
+        move: true, 
+        moveArr: resultMoveArr, 
+        currentX: x,
+        currentY: y, 
+        typeFigure: type,
+      }
     }
     else if(move && moveArr.length > 0){
-      moveFigure(data, updateState);
+      newState = moveFigure(stateWithCoordinates);
     }
     else{
-      updateState({
-          move: false,
-          moveArr: [],
-          currentX: null,
-          currentY: null,
-      })
+      newState = {
+        move: false,
+        moveArr: [],
+        currentX: null,
+        currentY: null,
+      };
     }
+    updateState(newState)
   }
-  
 }
+
+

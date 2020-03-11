@@ -4,10 +4,10 @@ import Figure from './figure';
 
 export default (props) =>{
   const canGo = props.canGo ? "canGo" : '';
-  // console.log("isSelected", props.isSelected)
+  const isSelected = props.isSelected ? "selected" : ''
   return(
-      <div className={`cell ${canGo} ${props.isSelected}`} onClick={() => props.onClick(props.cell, props.row)}>
-          <Figure status={props.status} />
+      <div className={`cell ${canGo} ${isSelected}`}>
+          <Figure status={props.status} coordinates={`${props.cell}, ${props.row}`}/>
       </div>
   )
 }
