@@ -1,6 +1,6 @@
 import { getType } from '../logic/utils';
 import { getMoveDirection } from '../logic/getMoveDirection';
-import { diagonal, straight } from '../data/figures';
+import { diagonal, straight } from '../data/moveDirections';
 import { castling } from '../logic/castling'
 import { getPawnMoveArr } from './getPawnMoveArr';
 import { getHorseMoveArr } from './getHorseMoveArr';

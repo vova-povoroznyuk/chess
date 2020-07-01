@@ -1,4 +1,4 @@
-import { horseDiraction } from '../data/figures';
+import { horseDiraction } from '../data/moveDirections';
 export function getHorseMoveArr( x, y, status, enemy){ 
   let moveArr = [];
   horseDiraction.forEach(el => {

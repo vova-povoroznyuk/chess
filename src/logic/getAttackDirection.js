@@ -1,4 +1,4 @@
-import { diagonal, straight } from '../data/figures';
+import { diagonal, straight } from '../data/moveDirections';
 import { getType } from './utils';
 
 export function getAttackDirection(kingPosition, data, diractionType, status){
