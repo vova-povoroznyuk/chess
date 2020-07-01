@@ -1,4 +1,4 @@
-import { horseDiraction } from '../data/figures';
+import { horseDiraction } from '../data/moveDirections';
 
 export function checkEnemyHorse(kingPosition, state) {
   const { status, player } = state;

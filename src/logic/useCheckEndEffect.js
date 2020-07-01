@@ -12,9 +12,9 @@ export function useCheckEndEffect(state, updateState){
       const isEnd = checkEnd(state);
       if(isEnd){
           let updateData = {};
-          const kingPosition = getFigurePosition(updateData.player, 'king', updateData.status);
-          const isCheck = getAttackArr(kingPosition, updateData, updateData.status).length > 0;
-          updateData = { isEnd: {loser: updateData.player, endType: isCheck ? 'checkmate' : 'stalemate'}};
+          const kingPosition = getFigurePosition(state.player, 'king', state.status);
+          const isCheck = getAttackArr(kingPosition, state, state.status).length > 0;
+          updateData = { ...state, isEnd: {loser: state.player, endType: isCheck ? 'checkmate' : 'stalemate'}};
           updateState(updateData)
           return;
       }

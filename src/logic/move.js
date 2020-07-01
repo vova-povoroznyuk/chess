@@ -61,12 +61,12 @@ export function moveFigure(state){
     newState = {
         ...newState,
         ...newStateVals,
-        player: nextPlayer,
         status: statusClone,
+        player: nextPlayer,
         history: [...state.history, {currentX, currentY, nextX: x, nextY: y, typeFigure}],
     }
   }
-  return newState
+  return newState;
 }
 
 
